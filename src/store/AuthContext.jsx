@@ -7,31 +7,52 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // 🔹 Cargar sesión desde localStorage al iniciar
   useEffect(() => {
-    const checkUser = async () => {
+    const loadUser = async () => {
+      const storedSession = localStorage.getItem("session");
+      if (storedSession) {
+        setUser(JSON.parse(storedSession).user);
+      }
+
       const { data } = await supabase.auth.getUser();
-      setUser(data?.user || null);
+      if (data?.user) {
+        setUser(data.user);
+        localStorage.setItem("session", JSON.stringify(data));
+      } else {
+        localStorage.removeItem("session");
+      }
+
       setLoading(false);
     };
-    
-    checkUser();
 
+    loadUser();
+
+    // 🔹 Escuchar cambios en la sesión
     const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user || null);
+      if (session?.user) {
+        setUser(session.user);
+        localStorage.setItem("session", JSON.stringify(session));
+      } else {
+        setUser(null);
+        localStorage.removeItem("session");
+      }
     });
 
     return () => listener.subscription.unsubscribe();
   }, []);
 
   const login = async (email, password) => {
-    const { error, data } = await supabase.auth.signInWithPassword({ email, password });
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) throw error;
     setUser(data.user);
+    localStorage.setItem("session", JSON.stringify(data));
   };
 
   const logout = async () => {
     await supabase.auth.signOut();
     setUser(null);
+    localStorage.removeItem("session");
   };
 
   return (

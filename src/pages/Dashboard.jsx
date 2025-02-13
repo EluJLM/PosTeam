@@ -1,6 +1,6 @@
 import { useAuth } from "../store/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { routes } from "../utils/routes";
+import { routes } from "../utils/data";
 
 export function Dashboard() {
   const { user, logout } = useAuth();
