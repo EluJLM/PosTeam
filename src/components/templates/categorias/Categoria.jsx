@@ -1,51 +1,30 @@
-// src/components/CategoriaCrud.jsx
 import React, { useEffect, useState } from 'react';
-import { supabase } from './client';
+import { CategoriaStore } from './../../../store/categoriaStore';
 
-export const CrudCategoria = () => {
-  const [categorias, setCategorias] = useState([]);
+export const Categoria = () => {
+  const { categorias, loadCategorias, addCategoria, removeCategoria, updateCategoria } = CategoriaStore();
   const [nombre, setNombre] = useState('');
   const [editId, setEditId] = useState(null);
 
-  // Obtener todas las categorías
-  const fetchCategorias = async () => {
-    const { data, error } = await supabase.from('categoria').select('*');
-    if (error) console.error('Error fetching categorias:', error);
-    else setCategorias(data);
-  };
-
   useEffect(() => {
-    fetchCategorias();
-  }, []);
+    loadCategorias();
+  }, [loadCategorias]);
 
-  // Crear o actualizar una categoría
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (editId) {
-      // Actualizar categoría
-      const { error } = await supabase
-        .from('categoria')
-        .update({ nombre })
-        .eq('id', editId);
-      if (error) console.error('Error updating categoria:', error);
+      await updateCategoria(editId, nombre);
     } else {
-      // Crear nueva categoría
-      const { error } = await supabase.from('categoria').insert([{ nombre }]);
-      if (error) console.error('Error creating categoria:', error);
+      await addCategoria(nombre);
     }
     setNombre('');
     setEditId(null);
-    fetchCategorias();
   };
 
-  // Eliminar una categoría
   const handleDelete = async (id) => {
-    const { error } = await supabase.from('categoria').delete().eq('id', id);
-    if (error) console.error('Error deleting categoria:', error);
-    fetchCategorias();
+    await removeCategoria(id);
   };
 
-  // Editar una categoría
   const handleEdit = (categoria) => {
     setNombre(categoria.nombre);
     setEditId(categoria.id);
