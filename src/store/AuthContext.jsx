@@ -45,10 +45,48 @@ export function AuthProvider({ children }) {
   const login = async (email, password) => {
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) throw error;
+
+    const userId = data.user.id;
+
+    // 1️⃣ Verificar si el usuario ya existe en la tabla "usuarios"
+    const { data: usuarioExistente, error: usuarioError } = await supabase
+      .from("usuarios")
+      .select("*")
+      .eq("id", userId)
+      .single();
+
+    if (!usuarioExistente) {
+      // 2️⃣ Crear una empresa con valores genéricos
+      const { data: empresaData, error: empresaError } = await supabase
+        .from("empresas")
+        .insert([{ nombre: "Empresa de nuevo usuario", direccion: "Sin definir", telefono: "0000000000", nit: "2222222"}])
+        .select()
+        .single();
+
+      if (empresaError) throw empresaError;
+
+      const empresaId = empresaData.id;
+
+      // 3️⃣ Registrar el usuario en la tabla "usuarios" vinculado a la empresa
+      const { error: usuarioInsertError } = await supabase.from("usuarios").insert([
+        {
+          id: userId,
+          nombre: "Nuevo Usuario",
+          email,
+          rol: "admin",
+          empresa_id: empresaId,
+        },
+      ]);
+
+      if (usuarioInsertError) throw usuarioInsertError;
+    }
+
+    // 4️⃣ Guardar usuario en el estado
     setUser(data.user);
     localStorage.setItem("session", JSON.stringify(data));
   };
 
+  // 🔹 LOGOUT
   const logout = async () => {
     await supabase.auth.signOut();
     setUser(null);

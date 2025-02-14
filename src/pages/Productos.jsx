@@ -1,23 +1,18 @@
-import { useEffect } from "react";
-import { useProductsStore } from "../store/productsStore";
+import { useEffect, useState } from "react";
+import FormAgregarProducto from "../components/FormAgregarProducto";
+import { CrudCategoria } from "../supabase/crudCategorias";
+import { CrudProducto } from "../supabase/crudProducto";
 
-export function Productos() {
-  const { products, fetchProducts } = useProductsStore();
+export const Productos = () => {
+  const [mostrarFormulario, setMostrarFormulario] = useState(false);
 
-  useEffect(() => {
-    fetchProducts();
-  }, []);
 
   return (
     <div>
       <h2>Lista de Productos</h2>
-      <ul>
-        {products.map((prod) => (
-          <li key={prod.id}>
-            {prod.nombre} - ${prod.precio}
-          </li>
-        ))}
-      </ul>
+      
+      <CrudCategoria />
+      <CrudProducto />
     </div>
   );
-}
+};
