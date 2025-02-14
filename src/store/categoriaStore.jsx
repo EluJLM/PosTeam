@@ -1,25 +1,52 @@
 import { create } from 'zustand';
-import { fetchCategorias, createCategoria, updateCategoria, deleteCategoria } from '../supabase/categoriasCrud';
+import { getCategorias, createCategoria, updateCategoria, deleteCategoria } from '../supabase/categoriasCrud';
 
 export const CategoriaStore = create((set) => ({
   categorias: [],
-  loadCategorias: async () => {
-    const categorias = await fetchCategorias();
-    set({ categorias });
+  // Obtener todas las categorías
+  fetchCategorias: async () => {
+    set({ loading: true, error: null });
+    try {
+      const data = await getCategorias();
+      set({ categorias: data, loading: false });
+    } catch (error) {
+      set({ error: error.message, loading: false });
+    }
   },
-  addCategoria: async (nombre) => {
-    await createCategoria(nombre);
-    const categorias = await fetchCategorias();
-    set({ categorias });
+
+  // Crear una categoría
+  addCategoria: async (categoria) => {
+    set({ loading: true, error: null });
+    try {
+      await createCategoria(categoria);
+      set((state) => ({ loading: false }));
+      CategoriaStore.getState().fetchCategorias(); // Refrescar la lista
+    } catch (error) {
+      set({ error: error.message, loading: false });
+    }
   },
-  updateCategoria: async (id, nombre) => {
-    await updateCategoria(id, nombre);
-    const categorias = await fetchCategorias();
-    set({ categorias });
+
+  // Actualizar una categoría
+  editCategoria: async (id, categoria) => {
+    set({ loading: true, error: null });
+    try {
+      await updateCategoria(id, categoria);
+      set((state) => ({ loading: false }));
+      CategoriaStore.getState().fetchCategorias(); // Refrescar la lista
+    } catch (error) {
+      set({ error: error.message, loading: false });
+    }
   },
+
+  // Eliminar una categoría
   removeCategoria: async (id) => {
-    await deleteCategoria(id);
-    const categorias = await fetchCategorias();
-    set({ categorias });
+    set({ loading: true, error: null });
+    try {
+      await deleteCategoria(id);
+      set((state) => ({ loading: false }));
+      CategoriaStore.getState().fetchCategorias(); // Refrescar la lista
+    } catch (error) {
+      set({ error: error.message, loading: false });
+    }
   },
 }));

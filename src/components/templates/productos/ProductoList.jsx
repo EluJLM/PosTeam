@@ -14,7 +14,7 @@ export const ProductoList = () => {
 
   return (
     <div>
-      <h1>Lista de Productos</h1>
+      <h3>Lista de Productos</h3>
       {productos.map((producto) => (
         <ProductoItem key={producto.id} producto={producto} />
       ))}

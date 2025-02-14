@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
 import {ProductoForm} from "../components/templates/productos/productoForm";
 import {ProductoList} from "../components/templates/productos/ProductoList";
-import { Categoria } from "../components/templates/categorias/Categoria";
-
+import { CategoriaForm } from "../components/templates/categorias/CategoriaForm";
+import { CategoriaList } from "../components/templates/categorias/CategoriaList";
 export const Productos = () => {
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
 
 
   return (
     <div>
-      <h2>Lista de Productos</h2>
+      <h2>Productos</h2>
       
-      <Categoria />
-      <ProductoForm  onClose={() => {}}/>
+      <CategoriaForm/>
+      <CategoriaList />
+      <ProductoForm  />
       <ProductoList />
     </div>
   );

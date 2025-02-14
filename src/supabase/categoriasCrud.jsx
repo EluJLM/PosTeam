@@ -1,6 +1,6 @@
 import { supabase } from '../supabase/client';
 
-export const fetchCategorias = async () => {
+export const getCategorias = async () => {
   const { data, error } = await supabase.from('categoria').select('*');
   if (error) console.error('Error fetching categorias:', error);
   return data || [];

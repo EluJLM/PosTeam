@@ -4,7 +4,7 @@ import { CategoriaStore } from '../../../store/categoriaStore';
 
 export const ProductoForm = ({ producto, onClose }) => {
   const { addProducto, editProducto } = useProductoStore();
-  const { categorias, loadCategorias } = CategoriaStore();
+  const { categorias, fetchCategorias } = CategoriaStore();
   
   const [nombre, setNombre] = useState(producto?.nombre || '');
   const [codigoBarra, setCodigoBarra] = useState(producto?.codigo_barra || '');
@@ -14,8 +14,8 @@ export const ProductoForm = ({ producto, onClose }) => {
   const [categoriaId, setCategoriaId] = useState(producto?.categoria_id || '');
 
   useEffect(() => {
-    loadCategorias(); // Cargar categorías al montar el componente
-  }, [loadCategorias]);
+    fetchCategorias(); // Cargar categorías al montar el componente
+  }, [fetchCategorias]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -39,6 +39,7 @@ export const ProductoForm = ({ producto, onClose }) => {
 
   return (
     <form onSubmit={handleSubmit}>
+      <h2>Agregar Productos</h2>
       <input
         type="text"
         placeholder="Nombre"
@@ -51,7 +52,6 @@ export const ProductoForm = ({ producto, onClose }) => {
         placeholder="Código de barras"
         value={codigoBarra}
         onChange={(e) => setCodigoBarra(e.target.value)}
-        required
       />
       <input
         type="number"
