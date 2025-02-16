@@ -5,6 +5,7 @@ import {
   createProducto,
   updateProducto,
   deleteProducto,
+  searchProductos,
 } from './../supabase/productoCrud';
 
 // Store de Zustand para productos
@@ -13,17 +14,15 @@ const useProductoStore = create((set) => ({
   loading: false,
   error: null,
 
-  // Obtener todos los productos
-  fetchProductos: async () => {
+  fetchProductos: async (dt) => {
     set({ loading: true, error: null });
     try {
-      const data = await getProductos();
+      const data = await searchProductos(dt);
       set({ productos: data, loading: false });
     } catch (error) {
       set({ error: error.message, loading: false });
     }
   },
-
   // Crear un producto
   addProducto: async (producto) => {
     set({ loading: true, error: null });

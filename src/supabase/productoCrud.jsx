@@ -7,6 +7,19 @@ export const getProductos = async () => {
   return data;
 };
 
+export const searchProductos = async (searchTerm) => {
+  console.log(searchTerm)
+  const { data, error } = await supabase.rpc("search_productos", {
+    search_term: searchTerm, 
+  });
+  if (error) {
+    console.error("Error en la búsqueda:", error);
+    throw error;
+  }
+  return data;
+};
+
+
 export const createProducto = async (producto) => {
   const { data, error } = await supabase.from('producto').insert([producto]);
   if (error) throw error;

@@ -1,3 +1,4 @@
+import { useModalStore } from '../components/modal/useModalStore';
 import { supabase } from '../supabase/client';
 
 export const getCategorias = async () => {
@@ -18,5 +19,8 @@ export const updateCategoria = async (id, nombre) => {
 
 export const deleteCategoria = async (id) => {
   const { error } = await supabase.from('categoria').delete().eq('id', id);
-  if (error) console.error('Error deleting categoria:', error);
+  if (error) {
+    console.error('Error deleting categoria:', error);
+    useModalStore.getState().openModal("Error" ,error.message);
+  }
 };

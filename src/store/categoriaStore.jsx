@@ -44,7 +44,7 @@ export const CategoriaStore = create((set) => ({
     try {
       await deleteCategoria(id);
       set((state) => ({ loading: false }));
-      CategoriaStore.getState().fetchCategorias(); // Refrescar la lista
+      CategoriaStore.getState().fetchCategorias(); 
     } catch (error) {
       set({ error: error.message, loading: false });
     }

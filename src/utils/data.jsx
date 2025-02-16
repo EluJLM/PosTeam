@@ -3,7 +3,7 @@ import { AiOutlineDashboard, AiOutlineShoppingCart, AiOutlineUser, AiOutlineShop
 export const routes = {
   login: "/login",
   dashboard: "/dashboard",
-  ventas: "/ventas",
+  vender: "/vender",
   clientes: "/clientes",
   productos: "/productos",
 };
@@ -11,7 +11,7 @@ export const routes = {
 // Menú para la barra lateral
 export const navegacion = [
   { name: "Dashboard", icon: <AiOutlineDashboard size={28}/>, link: routes.dashboard },
-  { name: "Ventas", icon: <AiOutlineShoppingCart size={28}/>, link: routes.ventas },
+  { name: "Vender", icon: <AiOutlineShoppingCart size={28}/>, link: routes.vender },
   { name: "Clientes", icon: <AiOutlineUser size={28}/>, link: routes.clientes },
   { name: "Productos", icon: <AiOutlineShopping size={28}/>, link: routes.productos },
 ];

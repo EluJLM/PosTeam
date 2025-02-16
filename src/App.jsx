@@ -6,6 +6,7 @@ import { ThemeProvider } from "styled-components";
 import { GlobalStyles } from "./styles/GlobalStyles";
 import { useTheme } from "./hooks/useTheme";
 import Nav from "./components/nav/nav";
+import {ModalTwo} from "./components/modal/ModalTwo";
 
 function App() {
   const { pathname } = useLocation();
@@ -18,14 +19,14 @@ function App() {
         {pathname !== "/login" ? (
           <div>
             <Nav toggleTheme={toggleTheme}/>
-            {/*<Sidebar toggleTheme={toggleTheme} />
-            */}<main>
+            <main>
               <MyRouters />
             </main>
           </div>
         ) : (
           <Login />
         )}
+        <ModalTwo />
       </AuthProvider>
     </ThemeProvider>
   );
