@@ -1,6 +1,6 @@
 // src/components/templates/uis/ClienteList.jsx
 import React, { useEffect } from 'react';
-import useClienteStore from '../../../store/stores/clienteStore';
+import useClienteStore from '../../../store/clienteStore';
 import ClienteItem from './ClienteItem';
 
 const ClienteList = () => {

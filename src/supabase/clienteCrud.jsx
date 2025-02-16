@@ -1,5 +1,6 @@
 
-import { supabase } from '../../supabaseClient';
+import { useModalStore } from '../components/modal/useModalStore';
+import { supabase } from './client';
 
 export const getClientes = async () => {
   const { data, error } = await supabase.from('clientes').select('*');
@@ -9,7 +10,10 @@ export const getClientes = async () => {
 
 export const createCliente = async (cliente) => {
   const { data, error } = await supabase.from('clientes').insert([cliente]);
-  if (error) throw error;
+  if (error) {
+      console.error('Error deleting categoria:', error);
+      useModalStore.getState().openModal("Error" ,error.details);
+    }
   return data;
 };
 

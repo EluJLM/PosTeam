@@ -6,6 +6,7 @@ import { routes } from "../utils/data";
 
 import { ProtectedRoute } from "./../hooks/ProtectedRoute";
 import { Vender } from "../pages/Vender";
+import { Clientes } from "../pages/Clientes";
 
 export function MyRouters(){
     return(
@@ -33,6 +34,14 @@ export function MyRouters(){
             element={
               <ProtectedRoute>
                 <Vender />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path={routes.clientes}
+            element={
+              <ProtectedRoute>
+                <Clientes />
               </ProtectedRoute>
             }
           />

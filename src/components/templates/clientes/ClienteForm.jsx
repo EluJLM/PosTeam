@@ -1,5 +1,5 @@
 // src/components/templates/uis/ClienteForm.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import useClienteStore from '../../../store/clienteStore';
 import useTipoDocumentoStore from '../../../store/tipoDocumentoStore';
 
@@ -11,20 +11,21 @@ const ClienteForm = ({ cliente, onClose }) => {
   const [correo, setCorreo] = useState(cliente?.correo || '');
   const [direccion, setDireccion] = useState(cliente?.direccion || '');
   const [tipoDocumentoId, setTipoDocumentoId] = useState(cliente?.tipo_de_documento || '');
+  const [documento, setDocumento] = useState(cliente?.documento || '');
 
-  // Cargar tipos de documento al montar el componente
-  React.useEffect(() => {
-    fetchTiposDocumento();
-  }, [fetchTiposDocumento]);
+    useEffect(() => {
+        fetchTiposDocumento();
+    }, [fetchTiposDocumento]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const clienteData = {
-      nombre,
-      telefono,
-      correo,
-      direccion,
-      tipo_de_documento: tipoDocumentoId,
+        nombre:  nombre,
+        telefono: telefono,
+        correo: correo,
+        direccion: direccion,
+        tipo_de_documento_id: tipoDocumentoId,
+        documento: documento,
     };
 
     if (cliente?.id) {
@@ -32,6 +33,12 @@ const ClienteForm = ({ cliente, onClose }) => {
     } else {
       await addCliente(clienteData); // Crear cliente
     }
+    setNombre("")
+    setTelefono("")
+    setCorreo("")
+    setDireccion("")
+    setTipoDocumentoId("")
+    setDocumento("")
 
     onClose(); // Cerrar el formulario
   };
@@ -46,7 +53,7 @@ const ClienteForm = ({ cliente, onClose }) => {
         required
       />
       <input
-        type="text"
+        type="number"
         placeholder="Teléfono"
         value={telefono}
         onChange={(e) => setTelefono(e.target.value)}
@@ -66,14 +73,21 @@ const ClienteForm = ({ cliente, onClose }) => {
         onChange={(e) => setDireccion(e.target.value)}
         required
       />
+      <input
+        type="number"
+        placeholder="Documento"
+        value={documento}
+        onChange={(e) => setDocumento(e.target.value)}
+        required
+      />
       <select
-        value={tipoDocumentoId}
+        value={cliente?.tipo_de_documento_id}
         onChange={(e) => setTipoDocumentoId(e.target.value)}
         required
       >
         <option value="">Seleccione un tipo de documento</option>
         {tiposDocumento.map((tipo) => (
-          <option key={tipo.id} value={tipo.id}>
+          <option key={tipo.id} value={tipo.id} >
             {tipo.nombre}
           </option>
         ))}
