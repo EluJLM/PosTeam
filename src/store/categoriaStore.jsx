@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { getCategorias, createCategoria, updateCategoria, deleteCategoria } from '../supabase/categoriasCrud';
 
-export const CategoriaStore = create((set) => ({
+export const useCategoriaStore = create((set) => ({
   categorias: [],
   // Obtener todas las categorías
   fetchCategorias: async () => {

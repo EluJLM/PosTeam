@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import useProductoStore from '../../../store/productoStore';
-import { CategoriaStore } from '../../../store/categoriaStore';
+import { useCategoriaStore } from '../../../store/categoriaStore';
 
 export const ProductoForm = ({ producto, onClose }) => {
   const { addProducto, editProducto } = useProductoStore();
-  const { categorias, fetchCategorias } = CategoriaStore();
+  const { categorias, fetchCategorias } = useCategoriaStore();
   
   const [nombre, setNombre] = useState(producto?.nombre || '');
   const [codigoBarra, setCodigoBarra] = useState(producto?.codigo_barra || '');

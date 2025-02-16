@@ -1,9 +1,9 @@
 
 import React, { useState } from 'react';
-import {CategoriaStore} from '../../../store/categoriaStore';
+import {useCategoriaStore} from '../../../store/categoriaStore';
 
 export const CategoriaForm = ({ categoria, onClose }) => {
-  const { addCategoria, editCategoria } = CategoriaStore();
+  const { addCategoria, editCategoria } = useCategoriaStore();
   const [nombre, setNombre] = useState(categoria?.nombre || '');
 
   const handleSubmit = async (e) => {

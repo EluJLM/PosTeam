@@ -1,10 +1,10 @@
 // src/components/templates/uis/CategoriaList.jsx
 import React, { useEffect } from 'react';
-import { CategoriaStore } from '../../../store/categoriaStore';
+import { useCategoriaStore } from '../../../store/categoriaStore';
 import {CategoriaItem} from './CategoriaItem';
 
 export const CategoriaList = () => {
-  const { categorias, loading, fetchCategorias } = CategoriaStore();
+  const { categorias, loading, fetchCategorias } = useCategoriaStore();
 
   useEffect(() => {
     fetchCategorias();

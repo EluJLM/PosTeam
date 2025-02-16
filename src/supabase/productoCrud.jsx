@@ -8,7 +8,6 @@ export const getProductos = async () => {
 };
 
 export const searchProductos = async (searchTerm) => {
-  console.log(searchTerm)
   const { data, error } = await supabase.rpc("search_productos", {
     search_term: searchTerm, 
   });

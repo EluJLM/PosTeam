@@ -1,10 +1,10 @@
 
 import React, { useState } from 'react';
-import {CategoriaStore} from '../../../store/categoriaStore';
+import {useCategoriaStore} from '../../../store/categoriaStore';
 import {CategoriaForm} from './CategoriaForm';
 
 export const CategoriaItem = ({ categoria }) => {
-  const { removeCategoria } = CategoriaStore();
+  const { removeCategoria } = useCategoriaStore();
   const [isEditing, setIsEditing] = useState(false);
 
   const handleDelete = () => {
