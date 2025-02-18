@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import useProductoStore from '../../../store/productoStore';
 import { useCategoriaStore } from '../../../store/categoriaStore';
+import { StyledForm } from '../../../styles/GlobalStyles';
 
 export const ProductoForm = ({ producto, onClose }) => {
   const { addProducto, editProducto } = useProductoStore();
@@ -8,9 +9,9 @@ export const ProductoForm = ({ producto, onClose }) => {
   
   const [nombre, setNombre] = useState(producto?.nombre || '');
   const [codigoBarra, setCodigoBarra] = useState(producto?.codigo_barra || '');
-  const [precio, setPrecio] = useState(producto?.precio || 0);
-  const [costo, setCosto] = useState(producto?.costo || 0);
-  const [stock, setStock] = useState(producto?.stock || 0);
+  const [precio, setPrecio] = useState(producto?.precio || '');
+  const [costo, setCosto] = useState(producto?.costo || '');
+  const [stock, setStock] = useState(producto?.stock || '');
   const [categoriaId, setCategoriaId] = useState(producto?.categoria_id || '');
 
   useEffect(() => {
@@ -38,7 +39,7 @@ export const ProductoForm = ({ producto, onClose }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <StyledForm onSubmit={handleSubmit}>
       <h2>Agregar Productos</h2>
       <input
         type="text"
@@ -90,6 +91,6 @@ export const ProductoForm = ({ producto, onClose }) => {
       <button type="button" onClick={onClose}>
         Cancelar
       </button>
-    </form>
+    </StyledForm>
   );
 };

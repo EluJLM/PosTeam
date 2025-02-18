@@ -11,9 +11,9 @@ export const Productos = () => {
     <div>
       <h2>Productos</h2>
       
+      <ProductoForm onClose={() => {}}/>
       <CategoriaForm onClose={() => {}}/>
       <CategoriaList />
-      <ProductoForm onClose={() => {}}/>
     </div>
   );
 };

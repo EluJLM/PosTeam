@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import useClienteStore from '../../../store/clienteStore';
 import useTipoDocumentoStore from '../../../store/tipoDocumentoStore';
+import { StyledForm } from '../../../styles/GlobalStyles';
 
 const ClienteForm = ({ cliente, onClose }) => {
   const { addCliente, editCliente } = useClienteStore();
@@ -10,7 +11,7 @@ const ClienteForm = ({ cliente, onClose }) => {
   const [telefono, setTelefono] = useState(cliente?.telefono || '');
   const [correo, setCorreo] = useState(cliente?.correo || '');
   const [direccion, setDireccion] = useState(cliente?.direccion || '');
-  const [tipoDocumentoId, setTipoDocumentoId] = useState(cliente?.tipo_de_documento || '');
+  const [tipoDocumentoId, setTipoDocumentoId] = useState(cliente?.tipo_de_documento_id || '');
   const [documento, setDocumento] = useState(cliente?.documento || '');
 
     useEffect(() => {
@@ -20,7 +21,7 @@ const ClienteForm = ({ cliente, onClose }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const clienteData = {
-        nombre:  nombre,
+        nombre: nombre,
         telefono: telefono,
         correo: correo,
         direccion: direccion,
@@ -44,7 +45,7 @@ const ClienteForm = ({ cliente, onClose }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <StyledForm onSubmit={handleSubmit}>
       <input
         type="text"
         placeholder="Nombre"
@@ -81,7 +82,7 @@ const ClienteForm = ({ cliente, onClose }) => {
         required
       />
       <select
-        value={cliente?.tipo_de_documento_id}
+        value={tipoDocumentoId}
         onChange={(e) => setTipoDocumentoId(e.target.value)}
         required
       >
@@ -96,7 +97,7 @@ const ClienteForm = ({ cliente, onClose }) => {
       <button type="button" onClick={onClose}>
         Cancelar
       </button>
-    </form>
+    </StyledForm>
   );
 };
 

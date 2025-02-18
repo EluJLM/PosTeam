@@ -21,6 +21,6 @@ export const deleteCategoria = async (id) => {
   const { error } = await supabase.from('categoria').delete().eq('id', id);
   if (error) {
     console.error('Error deleting categoria:', error);
-    useModalStore.getState().openModal("Error" ,error.message);
+    useModalStore.getState().openModal("Error" ,error.details);
   }
 };

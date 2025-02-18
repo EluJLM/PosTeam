@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import {useCategoriaStore} from '../../../store/categoriaStore';
+import { StyledForm } from '../../../styles/GlobalStyles';
 
 export const CategoriaForm = ({ categoria, onClose }) => {
   const { addCategoria, editCategoria } = useCategoriaStore();
@@ -19,7 +20,8 @@ export const CategoriaForm = ({ categoria, onClose }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <StyledForm onSubmit={handleSubmit}>
+      <h2>Agregar Categoria</h2>
       <input
         type="text"
         placeholder="Nombre de la categoría"
@@ -31,6 +33,6 @@ export const CategoriaForm = ({ categoria, onClose }) => {
       <button type="button" onClick={onClose}>
         Cancelar
       </button>
-    </form>
+    </StyledForm>
   );
 };

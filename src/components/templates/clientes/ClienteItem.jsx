@@ -14,7 +14,6 @@ const ClienteItem = ({ cliente }) => {
     removeCliente(cliente.id);
   };
   useEffect(()=>{
-    console.log(tiposDocumento[2].nombre);
   },[])
 
   return (
@@ -23,7 +22,7 @@ const ClienteItem = ({ cliente }) => {
         <ClienteForm cliente={cliente} onClose={() => setIsEditing(false)} />
       ) : (
         <div>
-          <p>{cliente.nombre} - {tiposDocumento[cliente.tipo_de_documento_id].nombre}: {cliente.documento}</p>
+          <p>{cliente.nombre} - {cliente.documento}</p>
           <button onClick={() => setIsEditing(true)}>Editar</button>
           <button onClick={handleDelete}>Eliminar</button>
         </div>
