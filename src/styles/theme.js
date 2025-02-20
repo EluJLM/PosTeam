@@ -15,6 +15,7 @@ export const lightTheme = {
     buttonBackground: "#007bff",
     buttonText: "#fff",
     buttonHoverBackground: "#0056b3",
+    inputBorderfocus: "#007bff",
   },
 };
 

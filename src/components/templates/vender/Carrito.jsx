@@ -24,7 +24,7 @@ const CantidadButton = styled.button`
 export const Carrito = ({ carrito, eliminarDelCarrito, ajustarCantidad }) => {
   return (
     <CarritoContainer>
-      <h3>Carrito</h3>
+      <h3>Factura</h3>
       {carrito.map((item) => (
         <CarritoItem key={item.id}>
           <p>{item.nombre} - Cantidad: {item.cantidad} - Subtotal: ${item.precio * item.cantidad}</p>

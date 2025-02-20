@@ -82,15 +82,14 @@ export const Vender = () => {
 
   return (
     <>
-      <h2>Página de ventas</h2>
       <ProductoList agregarAlCarrito={agregarAlCarrito} />
+      <ClienteSelector clienteId={clienteId} setClienteId={setClienteId} />
+      <MetodoPagoSelector metodoPagoId={metodoPagoId} setMetodoPagoId={setMetodoPagoId} />
       <Carrito
         carrito={carrito}
         eliminarDelCarrito={eliminarDelCarrito}
         ajustarCantidad={ajustarCantidad}
       />
-      <ClienteSelector clienteId={clienteId} setClienteId={setClienteId} />
-      <MetodoPagoSelector metodoPagoId={metodoPagoId} setMetodoPagoId={setMetodoPagoId} />
       <button onClick={finalizarVenta}>Finalizar Venta</button>
     </>
   );

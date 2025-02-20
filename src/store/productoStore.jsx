@@ -14,6 +14,9 @@ const useProductoStore = create((set) => ({
   loading: false,
   error: null,
 
+  inicializarProductos: () => {
+    set({ productos: [], loading: false, error: null });
+  },
   fetchProductos: async (dt) => {
     set({ loading: true, error: null });
     try {

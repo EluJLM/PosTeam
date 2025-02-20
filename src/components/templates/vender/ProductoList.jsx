@@ -1,8 +1,64 @@
 // src/components/Vender/ProductoList.jsx
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import useProductoStore from "../../../store/productoStore";
 import { DivRow } from "../../../styles/GlobalStyles";
+import Input from "../../moleculas/Input";
+import Button from "../../moleculas/Button";
+
+
+
+export const ProductoList = ({ agregarAlCarrito }) => {
+  const { productos, fetchProductos, inicializarProductos } = useProductoStore();
+  const [buscar, setBuscar] = useState("");
+
+  const handleFetch = () => {
+    if(buscar === "") return;
+    fetchProductos(buscar);
+    
+  };
+
+  useEffect(() => {
+    if(productos.length === 1) {
+      agregarAlCarrito(productos[0]);
+        inicializarProductos();
+        setBuscar("");
+    }
+  }, [productos]);
+
+  const buscarConEnter = (e) =>{
+    if(e.key === "Enter"){
+      handleFetch();
+    }
+  }
+  return (
+    <ProductoContainer>
+        <h3>Productos</h3>
+        <DivRow>
+            <Input 
+              label="Buscar"
+              placeholder="Buscar producto"
+              type="text"
+              name="buscar"
+              value={buscar}
+              onChange={(e) => setBuscar(e.target.value)}
+              onKeyDown={buscarConEnter}          
+            />
+            <Button onClick={handleFetch} text={"Buscar"}/>
+        </DivRow>
+        <DivRow>
+      {productos.length == 0 ? <div>no hay produtos</div> : productos.map((producto) => (
+          <ProductoItem key={producto.id}>
+          <p>{producto.nombre}</p>
+          <p>Precio: ${producto.precio}</p>
+          <p>Stock: {producto.stock}</p>
+          <button onClick={() => agregarAlCarrito(producto)}>Agregar al carrito</button>
+        </ProductoItem>
+      ))}
+      </DivRow>
+    </ProductoContainer>
+  );
+};
 
 const ProductoContainer = styled.div`
   margin-bottom: 20px;
@@ -15,44 +71,3 @@ const ProductoItem = styled.div`
   margin: 10px;
   border-radius: 5px;
 `;
-
-const BuscarInput = styled.input`
-  padding: 10px;
-  width: 100%;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-`;
-
-export const ProductoList = ({ agregarAlCarrito }) => {
-  const { productos, fetchProductos } = useProductoStore();
-  const [buscar, setBuscar] = useState("");
-
-  const handleFetch = () => {
-    fetchProductos(buscar);
-  };
-
-  return (
-    <ProductoContainer>
-        <h3>Productos</h3>
-        <DivRow>
-            <BuscarInput
-            type="text"
-            placeholder="Buscar productos..."
-            value={buscar}
-            onChange={(e) => setBuscar(e.target.value)}
-            />
-            <button onClick={handleFetch}>Buscar</button>
-        </DivRow>
-        <DivRow>
-      {productos.map((producto) => (
-          <ProductoItem key={producto.id}>
-          <p>{producto.nombre}</p>
-          <p>Precio: ${producto.precio}</p>
-          <p>Stock: {producto.stock}</p>
-          <button onClick={() => agregarAlCarrito(producto)}>Agregar al carrito</button>
-        </ProductoItem>
-      ))}
-      </DivRow>
-    </ProductoContainer>
-  );
-};

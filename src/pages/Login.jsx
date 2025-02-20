@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../store/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { routes } from "../utils/data";
+import Input from "../components/moleculas/Input";
+import Button from "../components/moleculas/Button";
 
 export function Login() {
   const [email, setEmail] = useState("");
@@ -20,16 +22,27 @@ export function Login() {
       await login(email, password);
       navigate(routes.dashboard);
     } catch (error) {
-      alert("Error al iniciar sesión");
     }
   };
 
   return (
     <div>
       <h2>Iniciar Sesión</h2>
-      <input type="email" placeholder="Correo" value={email} onChange={(e) => setEmail(e.target.value)} />
-      <input type="password" placeholder="Contraseña" value={password} onChange={(e) => setPassword(e.target.value)} />
-      <button onClick={handleLogin}>Entrar</button>
+      <Input 
+        label="Correo" 
+        type="email" name="email" 
+        value={email}
+        placeholder="Correo"
+        onChange={(e) => setEmail(e.target.value)} />
+      <Input 
+        label="Contraseña" 
+        type="password" 
+        name="password" 
+        placeholder="Contraseña"
+        value={password} 
+        onChange={(e) => setPassword(e.target.value)} />
+
+      <Button text="Entrar" onClick={handleLogin} />
     </div>
   );
 }
