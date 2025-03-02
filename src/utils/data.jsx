@@ -15,3 +15,9 @@ export const navegacion = [
   { name: "Clientes", icon: <AiOutlineUser size={28}/>, link: routes.clientes },
   { name: "Productos", icon: <AiOutlineShopping size={28}/>, link: routes.productos },
 ];
+
+export const t  ={
+  titulo: "Pos Team",
+  placeCorreo: "Ej: posteam@gmail.com",
+  placeContraseña: "Contraseña",
+}

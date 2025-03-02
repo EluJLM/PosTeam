@@ -1,11 +1,11 @@
 // src/themes.js
 export const lightTheme = {
-  body: "#ffffff",
+  body: "#f9f9f9",
   text: "#000000",
   sidebar: "#f4f4f4",
   navbar: "#ddd",
   button: "#007bff",
-  background: "#fff",
+  background: "#f9f9f9",
   form: {
     background: "#f9f9f9",
     border: "#ccc",

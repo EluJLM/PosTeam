@@ -26,7 +26,7 @@ const useProductoStore = create((set) => ({
       set({ error: error.message, loading: false });
     }
   },
-  // Crear un producto
+
   addProducto: async (producto) => {
     set({ loading: true, error: null });
     try {
@@ -38,7 +38,6 @@ const useProductoStore = create((set) => ({
     }
   },
 
-  // Actualizar un producto
   editProducto: async (id, producto) => {
     set({ loading: true, error: null });
     try {
@@ -50,7 +49,6 @@ const useProductoStore = create((set) => ({
     }
   },
 
-  // Eliminar un producto
   removeProducto: async (id) => {
     set({ loading: true, error: null });
     try {

@@ -5,6 +5,7 @@ import {
   createCliente,
   updateCliente,
   deleteCliente,
+  searchClientes,
 } from '../supabase/clienteCrud';
 
 const useClienteStore = create((set) => ({
@@ -12,15 +13,16 @@ const useClienteStore = create((set) => ({
   loading: false,
   error: null,
 
-  fetchClientes: async () => {
-    set({ loading: true, error: null });
-    try {
-      const data = await getClientes();
-      set({ clientes: data, loading: false });
-    } catch (error) {
-      set({ error: error.message, loading: false });
-    }
+  fetchClientes: async (dt) => {
+     set({ loading: true, error: null });
+      try {
+        const data = await searchClientes(dt);
+        set({ clientes: data, loading: false });
+      } catch (error) {
+        set({ error: error.message, loading: false });
+      }
   },
+  
 
   addCliente: async (cliente) => {
     set({ loading: true, error: null });
@@ -44,7 +46,6 @@ const useClienteStore = create((set) => ({
     }
   },
 
-  // Eliminar un cliente
   removeCliente: async (id) => {
     set({ loading: true, error: null });
     try {

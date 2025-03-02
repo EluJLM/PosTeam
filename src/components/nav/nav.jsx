@@ -17,10 +17,10 @@ const Nav = ({ toggleTheme }) => {
 
   return (
     <Navbar>
+
       <Title>
         <Link to="/">PosTeam</Link>
       </Title>
-
       <MenuCheckbox
         type="checkbox"
         id="menu-toggle"

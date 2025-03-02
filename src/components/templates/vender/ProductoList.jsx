@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import useProductoStore from "../../../store/productoStore";
-import { DivRow } from "../../../styles/GlobalStyles";
+import { Container2, DivRow } from "../../../styles/GlobalStyles";
 import Input from "../../moleculas/Input";
 import Button from "../../moleculas/Button";
 
@@ -32,14 +32,14 @@ export const ProductoList = ({ agregarAlCarrito }) => {
     }
   }
   return (
-    <ProductoContainer>
+    <Container2>
         <h3>Productos</h3>
         <DivRow>
             <Input 
               label="Buscar"
               placeholder="Buscar producto"
               type="text"
-              name="buscar"
+              name="buscar-productos"
               value={buscar}
               onChange={(e) => setBuscar(e.target.value)}
               onKeyDown={buscarConEnter}          
@@ -47,7 +47,7 @@ export const ProductoList = ({ agregarAlCarrito }) => {
             <Button onClick={handleFetch} text={"Buscar"}/>
         </DivRow>
         <DivRow>
-      {productos.length == 0 ? <div>no hay produtos</div> : productos.map((producto) => (
+      {productos.length == 0 ? <div>esperando a que busques produtos</div> : productos.map((producto) => (
           <ProductoItem key={producto.id}>
           <p>{producto.nombre}</p>
           <p>Precio: ${producto.precio}</p>
@@ -56,14 +56,11 @@ export const ProductoList = ({ agregarAlCarrito }) => {
         </ProductoItem>
       ))}
       </DivRow>
-    </ProductoContainer>
+    </Container2>
   );
 };
 
-const ProductoContainer = styled.div`
-  margin-bottom: 20px;
-  padding: 10px;
-`;
+
 
 const ProductoItem = styled.div`
   border: 1px solid #ccc;

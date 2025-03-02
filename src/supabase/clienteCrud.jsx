@@ -1,10 +1,21 @@
 
-import { useModalStore } from '../components/modal/useModalStore';
+import { useModalStore } from '../components/Modal/useModalStore';
 import { supabase } from './client';
 
 export const getClientes = async () => {
   const { data, error } = await supabase.from('clientes').select('*');
   if (error) throw error;
+  return data;
+};
+
+export const searchClientes = async (searchTerm) => {
+  const { data, error } = await supabase.rpc("search_clientes", {
+    search_term: searchTerm, 
+  });
+  if (error) {
+    console.error("Error en la búsqueda:", error);
+    throw error;
+  }
   return data;
 };
 
